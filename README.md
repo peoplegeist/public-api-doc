@@ -138,10 +138,13 @@ Let the user review the list of possible known problems and let the user select 
 
 Each time you query you get back a "query-id"
 This "queryId" will be needed to lookup the solutions.
-The "queryId" 
+The "queryId" remains valid for 60min. After that you need to resubmit a new query.
 
 2.1.2 Get possible solutions for a problem
 ```
-PATCH get-top-problems
+GET /{query-id}/problem/{problem-id}/solutions
 ```
 
+Get the known solutions for the problem.
+Each solution may have multiple similar texts.
+The user can pick the text that works best for him/her.
