@@ -1,5 +1,20 @@
 # Integration API for Peoplegeist Text AI
 
+## Intro
+Peoplegeist TextAI is a text analysis solution for manufacturing companies.
+This software understands your shiftlogs, maintenancelogs, equipmentlogs, qa-reports, ... other freetext data and shows you to:
+* Reduce downtime
+* Increase asset availability
+
+With peoplegeist Text AI you can find in your manufacturing text data:
+* Repeating issues, potentially systematic issues
+* Biggest loss drivers / failure modes
+* Regularly recurring maintenance issues
+* Root cause hints
+* Tips how to solve the equipment issue
+
+More: https://www.peoplegeist.com
+
 This is the documentation for the API:
 
 https://public-api.peoplegeist.com/doc/
