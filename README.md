@@ -1,4 +1,4 @@
-# Documentation for Peoplegeist Text AI Public API for integration
+# Integration API for Peoplegeist Text AI
 
 This is the documentation for the API:
 
