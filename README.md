@@ -17,16 +17,16 @@ More: https://www.peoplegeist.com
 
 ## Overview
 There are two parts to using this integration
-# Upload text data to Peoplegeist
-# Query analysis results
+* Upload text data to Peoplegeist
+* Query analysis results
 
 ## Authentication:
 *	Username/password: This will be provided per tenant and should be configurable per tenant.
 *	All request should include in the header “Authentication” with basic schema
 
-1. Upload Data
+## 1. Upload Data
 
-1.1 Ensure Databucket
+### 1.1 Ensure Databucket
 
 Text data or production events are uploaded in Peoplegeist into “Databuckets”.
 A databucket is a database.
@@ -59,7 +59,7 @@ You can use for example the LineID from the source system as reference.
 On upsert you receive the object with the “id_poll” that’s the databucket id.
 You will need that id_poll in the next step.
 
-1.2 Upload text data / production events
+### 1.2 Upload text data / production events
 
 There are no format requirements for the text comments.
 * Each event should be an own record
@@ -93,7 +93,7 @@ Example record:
 }]
 ```
 
-1.3 Group your uploads: Upload History
+### 1.3 Group your uploads: Upload History
 
 Optionally uploaded events can be grouped together that they can be re-identified using the Peoplegeist UI.
 The object "Upload History" helps you group events together.
@@ -110,19 +110,19 @@ Example:
 - Create uploadHistory: "Plant A - Line 1: 2024-06-10"
 - Upload all data of that day assigned to that uploadHistory
 
-2. Query analysis results.
+## 2. Query analysis results.
 
 Data is anlyzed as upload happen.
 Dhe analysis is saved that you can query it instantly.
 The depending on the volume of data it can take a few minutes until the analysis is updated to include the latest data.
 
-2.1 Lookup problem solutions
+### 2.1 Lookup problem / solutions
 
 You can lookup solutions to production problems in two steps:
 * Get a list of known similar problems
 * Get a list of possible solutions for a selected problem
 
-2.1.1 Get list of known problems that are similar
+### 2.1.1 Get list of known problems that are similar
 ```
 PATCH get-top-problems
 ```
@@ -140,7 +140,7 @@ Each time you query you get back a "query-id"
 This "queryId" will be needed to lookup the solutions.
 The "queryId" remains valid for 60min. After that you need to resubmit a new query.
 
-2.1.2 Get possible solutions for a problem
+### 2.1.2 Get possible solutions for a problem
 ```
 GET /{query-id}/problem/{problem-id}/solutions
 ```
