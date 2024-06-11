@@ -48,7 +48,7 @@ It's an UPSERT endpoint. By sending the following example body before every uplo
 The refeference field is used to re-identify the bucket you uploaded.
 You can use for example the LineID from the source system as reference.
 
-```
+```typescript
 {
   "id_poll": 0,
   "status": "running",
@@ -73,7 +73,7 @@ POST /campaign/databucket/{id_poll}/logs
  
 Example record:
 
-```
+```typescript
 [{
   "lineCount": 0,
   "reference": "eventId", // event id from your source system
@@ -115,15 +115,15 @@ Example:
 
 ## 2. Query analysis results.
 
-Data is anlyzed as upload happen.
-Dhe analysis is saved that you can query it instantly.
+Data is anlyzed as they are uploaded.
+The analysis is saved that you can query it instantly.
 The depending on the volume of data it can take a few minutes until the analysis is updated to include the latest data.
 
 ### 2.1 Lookup problem / solutions
 
-You can lookup solutions to production problems in two steps:
+You can lookup solutions to known problems in two steps:
 * Get a list of known similar problems
-* Get a list of possible solutions for a selected problem
+* Get a list of known solutions for a selected problem
 
 ### 2.1.1 Get list of known problems that are similar
 ```
@@ -132,9 +132,10 @@ PATCH /feedback/trouble-shooter/problems-find
 Get you a list of problems that are similar to your problem.
 
 Query parameter: 
-* topK = (default 20)
+* topK = how many results you want to get (default 20)
+
 Request body:
-```
+```typescript
 {
   onlyWithComments: true;
   id_polls: number[];  // list of databucket-ids you want to search in.
@@ -156,7 +157,7 @@ Request body:
 ```
 
 Returns
-```
+```typescript
 {
   queryId: 'uuid4';
 
@@ -211,7 +212,7 @@ Each solution may have multiple similar texts.
 The user can pick the text that works best.
 
 Response:
-```
+```typescript
 [
   {
     solutionId: '1';
