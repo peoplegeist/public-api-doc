@@ -28,6 +28,9 @@ There are two parts to using this integration
 
 See Swagger: https://public-api.peoplegeist.com/doc/index.html?url=campaign-public-swagger.json
 
+![Datamodel](./Slide1.PNG?raw=true)
+
+
 ### 1.1 Ensure Databucket
 
 Text data or production events are uploaded in Peoplegeist into “Databuckets”.
