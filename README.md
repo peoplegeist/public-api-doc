@@ -42,7 +42,7 @@ If you have multiple sites, you can nane your datatucket for example: "Site 1: L
 You can create a databucket with the following endpoint:
 
 ```
-POST / 
+PUT /campaign/databucket/
 ```
 It's an UPSERT endpoint. By sending the following example body before every upload, you can ensure that a databucket exists.
 The refeference field is used to re-identify the bucket you uploaded.
@@ -66,7 +66,10 @@ There are no format requirements for the text comments.
 * Machine property is mandatory per record
 * You can add meta-field values, that can be later used to filter analysis results.
 
-Use this endpoint to submit an array of events to the specified databucket (id_poll)
+Use this endpoint to submit an array of events to the specified databucket (id_poll):
+```
+POST /campaign/databucket/{id_poll}/logs
+```
  
 Example record:
 
@@ -124,27 +127,103 @@ You can lookup solutions to production problems in two steps:
 
 ### 2.1.1 Get list of known problems that are similar
 ```
-PATCH get-top-problems
+PATCH /feedback/trouble-shooter/problems-find
 ```
 Get you a list of problems that are similar to your problem.
 
 Query parameter: 
 * topK = (default 20)
 Request body:
-* the problem as string. Example "The light has gone dark"
+```
+{
+  onlyWithComments: true;
+  id_polls: number[];  // list of databucket-ids you want to search in.
+  topic: {
+    text: 'This is the problem description',
+    sentiment: null,
+    threshold: 0.55;
+  }; // filter by topic
+
+  metaOptions?: {
+    machine: 'Machine Name',
+    [index: string]: number[] | string[]
+  };  // the metafields of the events can be used to filter
+
+
+  fromDate?: Date; // if you want to limit the date range of the documents to query
+  thruDate?: Date; // Depending on usecase it is useful to only get solutions that are somewhat recent. Say 1 year old.
+}
+```
+
+Returns
+```
+{
+  queryId: 'uuid4';
+
+  queryExpirationDate: 'ISO 8601 Date';
+
+  problems: [
+    {
+      id: '1';  
+      topic: 'heater makes noise';
+      details: [
+        'heater makes noise',
+        'heater is noisy',
+        'heater is loud'
+      ];
+    
+      clusterSize: number;
+      members: ConversationMetaHeader[];
+    
+      topicScore?: number;
+    },
+    {
+      id: '2';
+      topic: 'boiler valves are hissing';
+      details: [
+        'boiler is hissing'
+      ];
+    
+      clusterSize: number;
+      members: ConversationMetaHeader[];
+    
+      topicScore?: number;
+    }
+  ];
+}
+```
 
 You get a list of possible problems back.
+* topic: contains the header of the problem.
+* details: a list of variants/similar phrasings that are grouped together into this problem group.
+ 
 Let the user review the list of possible known problems and let the user select the problem that might be a good match the current problem.
 
-Each time you query you get back a "query-id"
-This "queryId" will be needed to lookup the solutions.
-The "queryId" remains valid for 60min. After that you need to resubmit a new query.
+Remember the "queryId" and the "problem.id" field. Use these 2 fields to lookup possible solutions.
 
 ### 2.1.2 Get possible solutions for a problem
 ```
-GET /{query-id}/problem/{problem-id}/solutions
+GET /feedback/trouble-shooter/problems-find/{query-id}/{problem-id}/solutions
 ```
 
 Get the known solutions for the problem.
 Each solution may have multiple similar texts.
-The user can pick the text that works best for him/her.
+The user can pick the text that works best.
+
+Response:
+```
+[
+  {
+    solutionId: '1';
+    details: ['tag1', 'tag2', 'tag3', 'tag3'];
+    conversations: [
+      {
+        id_poll_response: number,
+        comment: 'this is the solution text',
+        machine: 'Machine Name';
+        responseDate: Date;
+      }
+    ];
+  },
+]
+```
