@@ -26,6 +26,8 @@ There are two parts to using this integration
 
 ## 1. Upload Data
 
+See Swagger: https://public-api.peoplegeist.com/doc/index.html?url=campaign-public-swagger.json
+
 ### 1.1 Ensure Databucket
 
 Text data or production events are uploaded in Peoplegeist into “Databuckets”.
@@ -114,6 +116,8 @@ Example:
 - Upload all data of that day assigned to that uploadHistory
 
 ## 2. Query analysis results.
+
+See Swagger: https://public-api.peoplegeist.com/doc/index.html?url=feedback-public-swagger.json
 
 Data is anlyzed as they are uploaded.
 The analysis is saved that you can query it instantly.
