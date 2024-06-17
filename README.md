@@ -82,15 +82,15 @@ Example record:
 [{
   "lineCount": 0,
   "reference": "eventId", // event id from your source system
-  "text": 3 CAN JAMS AT THE RINSER  ",  // free text
-  "machine": "Infeed Conveyor", // machine or asset name
+  "text": "CAN JAMS AT THE RINSER  ",  // free text
+  "machine": "Filler", // machine or asset name
   "date": "2023-02-06T12:00:00Z0", // shiftDate
   "downtime": 549, // duration of event in seconds
   "impactQty": 4575, // any waste or loss quantity
   "meta": { // these are optional meta fields you can add. You can add your ownfield
     “Product”: “C153112/BR”,
     “Shift”: “Green”,
-    “ReasonCode”: “EMPTY CAN RINSER”
+    “ReasonCode”: “FILLER CAN JAM”
     “Responsible”: “Operations”,
     “MyOwnFieldName”: “Something”
   },
