@@ -17,8 +17,8 @@ More: https://www.peoplegeist.com
 
 ## Overview
 There are two parts to using this integration
-* 1. Upload text data to Peoplegeist
-* 2. Query analysis results
+1. Upload text data to Peoplegeist
+2. Query analysis results
 
 ## Authentication:
 *	Username/password: This will be provided per tenant and should be configurable per tenant.
